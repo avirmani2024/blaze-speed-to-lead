@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+gspread
+anthropic
+httpx
+python-dotenv
