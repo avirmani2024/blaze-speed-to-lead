@@ -1,4 +1,4 @@
-# Build log
+﻿# Build log
 
 What we did and why. Newest entries at the bottom.
 
@@ -52,9 +52,16 @@ What we did and why. Newest entries at the bottom.
 - Secret check (401) = who may send; happens first, nothing saved. Rule flags = does the content look fake; happens after the 200 reply, never rejects; 2+ flags = score 1 without calling Claude. Flagged leads are still saved (never lose a lead).
 - `MASH_WORDS` is the list of fake-name words (`asdf`, `test`, `qwerty`) used by the name/company check.
 
+## Milestone 4: full test set (2026-10-18)
+- All 10 leads run; actual vs expected is in `README.md`. 9 of 10 exact, all 10 within one point, leads 9 and 10 both scored 1.
+- Latency (sheet `latency_s`, time-to-save): min 0.9 s, median 2.4 s, max 2.6 s. Lead 9 is fastest because rules skip Claude.
+- **The one miss:** lead 8 (HVAC vendor wanting to partner) scored 2, expected 1. `prompt.md` puts "vendor pitch" at 1 and "realtor/landlord" at 2; the boundary is a judgment call. Left as is and reported honestly. Possible single fix, not yet applied: say a vendor or service provider who wants to partner or sell is a 1 even if they serve rental properties (rerun all 10, keep before and after). Risk: tuning to the test set.
+- Leads 1 and 9 were rerun after their earlier rows were deleted from the sheet.
+- `README.md` written from these results; pushed commit 66c9078 earlier (before README).
+
 ## Still to do
-1. Run leads 2-8 and 10; record actual vs expected and min/median/max latency.
-2. No-lost-leads test with a wrong Anthropic key (expect "manual review" in sheet and Discord), then restore the key.
-3. Screenshots of the sheet and a Discord ping.
-4. README with results table; `git log -p` secret search; commit and push.
+1. Decide on the lead-8 prompt change (optional).
+2. No-lost-leads test with a wrong Anthropic key (expect "manual review" in sheet and Discord), then restore the key. Not run yet.
+3. Screenshots of the sheet and a Discord ping, added to the README.
+4. Commit and push the README; re-run the secret search; set repo public (or share with the reviewer).
 5. Loom and submission form.
